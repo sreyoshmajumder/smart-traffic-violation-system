@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Smart Traffic Violation System</title>
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+
+  </head>
+  <body>
+    <div class="container">
+      <h1>Smart Traffic Violation System</h1>
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="flash">
+          {% for m in messages %}<p>{{ m }}</p>{% endfor %}
+        </div>
+      {% endif %}
+      {% endwith %}
+
+      <form action="{{ url_for('upload_video') }}" method="post" enctype="multipart/form-data">
+        <label for="video">Upload junction video:</label>
+        <input type="file" id="video" name="video" accept="video/*" required />
+        <button type="submit">Analyze</button>
+      </form>
+    </div>
+  </body>
+</html>

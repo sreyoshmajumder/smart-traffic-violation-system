@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Violation Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Analysis Result</h1>
+      <p>Video: {{ filename }}</p>
+
+      {% if challans and challans|length > 0 %}
+        {% for c in challans %}
+          <div class="card">
+            <h2>E-Challan #{{ c.violation_id }}</h2>
+            <p><strong>Vehicle No:</strong> {{ c.vehicle_no }}</p>
+            <p><strong>Violation:</strong> {{ c.violation_type }}</p>
+            <p><strong>Reason:</strong> {{ c.reason }}</p>
+            <p><strong>Speed:</strong> {{ c.speed_kmph }} km/h</p>
+            <p><strong>Time:</strong> {{ c.timestamp }}</p>
+            <p><strong>Location:</strong> {{ c.location }}</p>
+            <p><strong>Fine:</strong> Rs {{ c.fine_amount }}</p>
+            <p><strong>Evidence:</strong><br /><img src="{{ c.evidence_url }}" alt="Evidence" class="evidence-img" /></p>
+            <p><strong>Challan File:</strong> {{ c.challan_file }}</p>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p>No clear violations detected in this video.</p>
+      {% endif %}
+
+      <a href="{{ url_for('index') }}">Analyze another video</a>
+    </div>
+  </body>
+</html>
